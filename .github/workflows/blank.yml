@@ -1,0 +1,23 @@
+name: Run PowerShell Script
+
+on:
+  workflow_dispatch: # This triggers the workflow manually
+
+jobs:
+  run-powershell-script:
+    runs-on: windows-latest  # Using a Windows runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Checkout the code in the repository
+
+      - name: Run PowerShell script
+        shell: pwsh
+        run: |
+          .\downloader.ps1
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: powershell-output
+          path: updatedb.zip
