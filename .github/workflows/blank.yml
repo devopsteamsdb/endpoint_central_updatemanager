@@ -25,10 +25,15 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1  # Action to create a GitHub release
         with:
-          files: updatedb.zip
           tag_name: ${{ github.run_number }}
           release_name: updatedb.zip ${{ steps.date.outputs.date }}
           body: |
             Uploaded on ${{ steps.date.outputs.date }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token to authenticate API requests
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: updatedb.zip ${{ steps.date.outputs.date }}
+          path: updatedb.zip
