@@ -8,5 +8,7 @@ write-output "location is $($PathParent)"
 Set-Location $folder
 ."$($folder)\patchsync.bat" -c updatedb -b 11.3.2440.01
 dir
+Compress-Archive -Path updatedb -DestinationPath updatedb.zip
+dir
 Set-Location $PathParent
 write-output "location is $($PathParent)"
