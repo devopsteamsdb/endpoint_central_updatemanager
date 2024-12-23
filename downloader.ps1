@@ -10,5 +10,5 @@ Set-Location $folder
 dir
 Compress-Archive -Path updatedb -DestinationPath updatedb.zip
 dir
-Set-Location $PathParent
+Copy-Item updatedb.zip $PathParent
 write-output "location is $($PathParent)"
