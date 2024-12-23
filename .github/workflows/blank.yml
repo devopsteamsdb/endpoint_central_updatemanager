@@ -21,6 +21,10 @@ jobs:
         run: |
           .\downloader.ps1
 
+      - name: Run PowerShell script 2
+        shell: pwsh
+        run: |
+          .\compress.ps1
 
       - name: Create Release
         id: create_release
