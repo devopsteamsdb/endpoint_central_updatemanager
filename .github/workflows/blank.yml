@@ -20,20 +20,25 @@ jobs:
         shell: pwsh
         run: |
           .\downloader.ps1
-          
+
+
       - name: Create Release
         id: create_release
-        uses: softprops/action-gh-release@v1  # Action to create a GitHub release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.run_number }}
           release_name: updatedb.zip ${{ steps.date.outputs.date }}
           body: |
             Uploaded on ${{ steps.date.outputs.date }}
+        
+      - uses: xresloader/upload-to-github-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token to authenticate API requests
-
-      - name: Upload output as artifact
-        uses: actions/upload-artifact@v3
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: updatedb.zip ${{ steps.date.outputs.date }}
-          path: updatedb.zip
+          draft: false
+          file: "*.zip"
+          release_id: ${{ steps.create_release.outputs.id }}
+          overwrite: true
+          verbose: true
