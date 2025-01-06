@@ -9,7 +9,7 @@ if (-not (Test-Path $folder)){Expand-Archive $outfile -DestinationPath $folder}
 $PathParent = $PWD.Path
 write-output "location is $($PathParent)"
 Set-Location $folder
-."$($folder)\patchsync.bat" -c updatedb -b 11.3.2440.01
+."$($folder)\patchsync.bat" -c updatedb -b 11.3.2440.09
 dir
 Compress-Archive -Path updatedb -DestinationPath "updatedb_$($date).zip"
 dir
